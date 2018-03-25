@@ -1,8 +1,12 @@
+<?php
+    require_once "config/db.php";
+?>
+
 <!DOCTYPE html>
 <html lang="ru">
 	<head>
-		<title>Узнай больше</title>
-	    <!-- Required meta tags -->
+		<title><?php echo $title;?></title>
+		<!-- Required meta tags -->
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -22,21 +26,22 @@
 		<div class="jumbotron" style="max-width: 100%; max-height: 150px;">
 			<?php require_once('add/mainTitle.php'); ?>
 		</div>
-		<!--<h1>Важные новости!</h1>-->
-			<div class="row">
-				<div class="col-md-8">
-					<?php require_once('add/articlesFirst.php'); ?>
-				</div>
 
-				<div class="col-sm-4 border border-top-0 border-right-0 border-bottom-0"><p class="text-center">Реклама</p>
-					<?php require_once('add/addBlock.php'); ?>
-				</div>
+		<!--<h1>Важные новости!</h1>-->
+		
+		<div class="row">
+			<div class="col-md-8">
+				<?php require_once('add/articlesFirst.php'); ?>
 			</div>
+
+			<div class="col-sm-4 border border-top-0 border-right-0 border-bottom-0"><p class="text-center">Реклама</p>
+				<?php require_once('add/addBlock.php'); ?>
+			</div>
+		</div>
 	</div>
-	<div></br></br></div>
-	<div class="container-fluid">
-		<?php require_once('add/articlesSecond.php'); ?>
-	</div>
+	<br>
+
 	<?php require_once('add/footer.php');?>
+
 	</body>
 </html>

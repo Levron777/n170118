@@ -1,98 +1,151 @@
+<?php require_once('config/db.php'); 
+
+# Connection to Database. 
+
+$page = 1;
+$per_page = 10;
+if (isset($_GET['page'])){
+	$page = ($_GET['page'] ? intval(htmlentities(trim($_GET['page']))) : 1);
+} 	
+
+$total_articles = $pdo->query("SELECT COUNT(`id`) AS `total_count` FROM `articles`");
+$total_count = $total_articles->fetch();
+$total_count = $total_count['total_count'];
+$total_pages = ceil($total_count/$per_page);
+
+if ($page <= 1 || $page > $total_pages) {
+	$page = 1;
+}
+$art = ($page * $per_page) - $per_page;
+
+$articles = $pdo->prepare("SELECT * FROM `articles` ORDER BY `id` DESC LIMIT ?, ?");
+$articles->bindValue(1, $art, PDO::PARAM_INT);
+$articles->bindValue(2, $per_page, PDO::PARAM_INT);
+$articles->execute();
+$articles_page = $articles->fetchAll();
+$articles_exist = true;
+
+# Pagination block
+
+if ($articles_page <= 0) {
+	echo "Статьи не обнаружены!";
+	$articles_exist = false;
+}
+
+if ($articles_exist == true) {
+	echo '<nav aria-label="Search results pages"><ul class="pagination">';
+	if ($page > 1) {
+		echo '<li class="page-item">';
+		echo '<a class="page-link text-info" tabindex="-1" href="/index.php?page=' . ($page - 1) . '">← Назад </a>';
+		echo '</li>';
+    }
+
+    if ($total_pages > 2) {
+    	if ($page == 1) {
+    		echo '<li class="page-item active text-info"><a class="page-link" href="/index.php?page='. $page .'">1</a></li>';
+    		echo '<li class="page-item text-info"><a class="page-link" href="/index.php?page=' . ($page + 1) . '">2</a></li>';
+    		echo '<li class="page-item text-info"><a class="page-link" href="/index.php?page=' . ($page + 2) . '">3</a></li>';
+    	}else if ($page == 2) {
+    		echo '<li class="page-item text-info"><a class="page-link" href="/index.php?page=' . ($page - 1) . '">1</a></li>';
+    		echo '<li class="page-item active text-info"><a class="page-link" href="/index.php?page=' . $page . '">2</a></li>';
+    		echo '<li class="page-item text-info"><a class="page-link" href="/index.php?page=' . ($page + 1) . '">3</a></li>';
+    	}else if ($page == 3) {
+    		echo '<li class="page-item text-info"><a class="page-link" href="/index.php?page=' . ($page - 2) . '">1</a></li>';
+    		echo '<li class="page-item text-info"><a class="page-link" href="/index.php?page=' . ($page - 1) . '">2</a></li>';
+    		echo '<li class="page-item active text-info"><a class="page-link" href="/index.php?page=' . $page . '">3</a></li>';
+    	}
+    }
+    if ($page < $total_pages) {
+    	echo '<li class="page-item">';
+        echo '<a class="page-link text-info" href="/index.php?page=' . ($page + 1) . '">Вперед  → </a>';
+        echo '</li>';
+   	}
+    
+    echo '</ul></nav>';
+}
+?>
+
+<!-- Add all articles and jpg's to the page-->
+
 <table class="table">
 	<tbody>
+		<?php foreach($articles_page as $art) { ?>
+
 		<tr>
 			<td>
-				<a href="add/oneArticle.php">
-					<img class="d-inline-block rounded " style="max-width: 120px; max-height: 120px;" src="../images/saudiArabia.jpg">
+				<a href="../add/oneArticle.php?id=<?php echo $art['id'];?>">
+					<img class="d-inline-block rounded " style="max-width: 300px; max-height: 300px;" src="../images/<?php echo $art['id'];?>.jpg">
 				</a>
-				<img src="/images/views.png" class="float-left " style="max-height: 20px; max-width: 20px;">
-				<p style="font-size: 13px;">23</p>
+				<img src="/images/views.png" class="float-left" style="max-height: 23px; max-width: 23px;">
+					<p style="font-size: 15px;"><?php echo $art['views'];?></p>
 			</td>
 			<td class="lead">
-                <a href="add/oneArticle.php" class="text-dark" style="text-decoration: none;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec venenatis odio in velit venenatis, at egestas ex euismod. Aenean consectetur sed dolor eget porttitor.</a>
-				<div class="container-fluid">
-					<div class="row">
-						<div class="col-lg" style="padding-left: 0px;">
-							<a href="add/oneArticle.php" class="btn btn-primary btn-sm">Далее... &raquo;</a>
-						</div>
-					</div>
-				</div>
-			</td>
-		</tr>
-		<tr>
-			<td>
-                <a href="#">
-                    <img class="d-inline-block rounded " style="max-width: 120px; max-height: 120px;" src="../images/apple.jpg">
+                <a href="add/oneArticle.php?id=<?php echo $art['id'];?>" class="text-dark" style="text-decoration: none;">
+                	<?php echo mb_substr(strip_tags($art['text']), 0, 200, 'utf-8') . " ..." ;?>
                 </a>
-				<img src="/images/views.png" class="float-left " style="max-height: 20px; max-width: 20px;">
-				<p style="font-size: 13px;">23</p>
-			</td>
-			<td class="lead"><a href="#" class="text-dark" style="text-decoration: none;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec venenatis odio in velit venenatis, at egestas ex euismod. Aenean consectetur sed dolor eget porttitor.</a>
 				<div class="container-fluid">
 					<div class="row">
 						<div class="col-lg" style="padding-left: 0px;">
-							<a href="#" class="btn btn-primary btn-sm">Далее... &raquo;</a>
+							<a href="add/oneArticle.php?id=<?php echo $art['id'];?>" class="btn btn-info btn-sm">Далее... &raquo;</a>
 						</div>
 					</div>
 				</div>
 			</td>
 		</tr>
-		<tr>
-			<td>
-                <a href="#">
-                    <img class="d-inline-block rounded " style="max-width: 120px; max-height: 120px;" src="../images/merkel.jpg">
-                </a>
-				<img src="/images/views.png" class="float-left " style="max-height: 20px; max-width: 20px;">
-				<p style="font-size: 13px;">23</p>
-			</td>
-			<td class="lead"><a href="#" class="text-dark" style="text-decoration: none;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec venenatis odio in velit venenatis, at egestas ex euismod. Aenean consectetur sed dolor eget porttitor.</a>
-				<div class="container-fluid">
-					<div class="row">
-						<div class="col-lg" style="padding-left: 0px;">
-							<a href="#" class="btn btn-primary btn-sm">Далее... &raquo;</a>
-						</div>
-					</div>
-				</div>
-			</td>
-		</tr>
-		<tr>
-			<td>
-                <a href="#">
-                    <img class="d-inline-block rounded " style="max-width: 120px; max-height: 120px;" src="../images/royal.jpg">
-                </a>
-				<img src="/images/views.png" class="float-left " style="max-height: 20px; max-width: 20px;">
-				<p style="font-size: 13px;">23</p>
-			</td>
-			<td class="lead">
-                <a href="#" class="text-dark" style="text-decoration: none;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec venenatis odio in velit venenatis, at egestas ex euismod. Aenean consectetur sed dolor eget porttitor.</a>
-				<div class="container-fluid">
-					<div class="row">
-						<div class="col-lg" style="padding-left: 0px;">
-							<a href="#" class="btn btn-primary btn-sm">Далее... &raquo;</a>
-						</div>
-					</div>
-				</div>
-			</td>
-		</tr>
-		<tr>
-			<td>
-                <a href="#">
-                    <img class="d-inline-block rounded " style="max-width: 120px; max-height: 120px;" src="../images/saudiArabia.jpg"></a>
-				<img src="/images/views.png" class="float-left " style="max-height: 20px; max-width: 20px;">
-				<p style="font-size: 13px;">23</p>
-			</td>
-			<td class="lead"><a href="#" class="text-dark" style="text-decoration: none;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec venenatis odio in velit venenatis, at egestas ex euismod. Aenean consectetur sed dolor eget porttitor.</a>
-				<div class="container-fluid">
-					<div class="row">
-						<div class="col-lg" style="padding-left: 0px;">
-							<a href="#" class="btn btn-primary btn-sm">Далее... &raquo;</a>
-						</div>
-					</div>
-				</div>
-			</td>
-		</tr>
+
+		<?php } ?>
+
 	</tbody>
 </table>
+
+<!-- Pagination block-->
+
+<?php 
+
+if ($articles_page <= 0) {
+	echo "Статьи не обнаружены!";
+	$articles_exist = false;
+}
+
+if ($articles_exist == true) {
+	echo '<nav aria-label="Search results pages"><ul class="pagination">';
+	if ($page > 1) {
+		echo '<li class="page-item">';
+		echo '<a class="page-link text-info" tabindex="-1" href="/index.php?page=' . ($page - 1) . '">← Назад </a>';
+		echo '</li>';
+    }
+
+    if ($total_pages > 2) {
+    	if ($page == 1) {
+    		echo '<li class="page-item active text-info"><a class="page-link" href="/index.php?page='. $page .'">1</a></li>';
+    		echo '<li class="page-item text-info"><a class="page-link" href="/index.php?page=' . ($page + 1) . '">2</a></li>';
+    		echo '<li class="page-item text-info"><a class="page-link" href="/index.php?page=' . ($page + 2) . '">3</a></li>';
+    	}else if ($page == 2) {
+    		echo '<li class="page-item text-info"><a class="page-link" href="/index.php?page=' . ($page - 1) . '">1</a></li>';
+    		echo '<li class="page-item active text-info"><a class="page-link" href="/index.php?page=' . $page . '">2</a></li>';
+    		echo '<li class="page-item text-info"><a class="page-link" href="/index.php?page=' . ($page + 1) . '">3</a></li>';
+    	}else if ($page == 3) {
+    		echo '<li class="page-item text-info"><a class="page-link" href="/index.php?page=' . ($page - 2) . '">1</a></li>';
+    		echo '<li class="page-item text-info"><a class="page-link" href="/index.php?page=' . ($page - 1) . '">2</a></li>';
+    		echo '<li class="page-item active text-info"><a class="page-link" href="/index.php?page=' . $page . '">3</a></li>';
+    	}
+    }
+    if ($page < $total_pages) {
+    	echo '<li class="page-item">';
+        echo '<a class="page-link text-info" href="/index.php?page=' . ($page + 1) . '">Вперед  → </a>';
+        echo '</li>';
+   	}
+    
+    echo '</ul></nav>';
+}
+?>
+
+
+
+
+
+
+
 
 
 <!-- other style 
