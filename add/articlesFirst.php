@@ -25,7 +25,7 @@ $articles->execute();
 $articles_page = $articles->fetchAll();
 $articles_exist = true;
 
-# Pagination block
+# Upper pagination block
 
 if ($articles_page <= 0) {
 	echo "Статьи не обнаружены!";
@@ -41,6 +41,7 @@ if ($articles_exist == true) {
     }
 
     if ($total_pages > 2) {
+
     	if ($page == 1) {
     		echo '<li class="page-item active text-info"><a class="page-link" href="/index.php?page='. $page .'">1</a></li>';
     		echo '<li class="page-item text-info"><a class="page-link" href="/index.php?page=' . ($page + 1) . '">2</a></li>';
@@ -55,13 +56,13 @@ if ($articles_exist == true) {
     		echo '<li class="page-item active text-info"><a class="page-link" href="/index.php?page=' . $page . '">3</a></li>';
     	}
     }
+
     if ($page < $total_pages) {
     	echo '<li class="page-item">';
-        echo '<a class="page-link text-info" href="/index.php?page=' . ($page + 1) . '">Вперед  → </a>';
-        echo '</li>';
+      echo '<a class="page-link text-info" href="/index.php?page=' . ($page + 1) . '">Вперед  → </a>';
+      echo '</li>';
    	}
-    
-    echo '</ul></nav>';
+  echo '</ul></nav>';
 }
 ?>
 
@@ -79,10 +80,11 @@ if ($articles_exist == true) {
 				<img src="/images/views.png" class="float-left" style="max-height: 23px; max-width: 23px;">
 					<p style="font-size: 15px;"><?php echo $art['views'];?></p>
 			</td>
+
 			<td class="lead">
-                <a href="add/oneArticle.php?id=<?php echo $art['id'];?>" class="text-dark" style="text-decoration: none;">
-                	<?php echo mb_substr(strip_tags($art['text']), 0, 200, 'utf-8') . " ..." ;?>
-                </a>
+        <a href="add/oneArticle.php?id=<?php echo $art['id'];?>" class="text-dark" style="text-decoration: none;">
+          <?php echo mb_substr(strip_tags($art['text']), 0, 200, 'utf-8') . " ..." ;?>
+        </a>
 				<div class="container-fluid">
 					<div class="row">
 						<div class="col-lg" style="padding-left: 0px;">
@@ -98,7 +100,7 @@ if ($articles_exist == true) {
 	</tbody>
 </table>
 
-<!-- Pagination block-->
+<!-- Downer pagination block-->
 
 <?php 
 
@@ -109,6 +111,7 @@ if ($articles_page <= 0) {
 
 if ($articles_exist == true) {
 	echo '<nav aria-label="Search results pages"><ul class="pagination">';
+
 	if ($page > 1) {
 		echo '<li class="page-item">';
 		echo '<a class="page-link text-info" tabindex="-1" href="/index.php?page=' . ($page - 1) . '">← Назад </a>';
@@ -116,6 +119,7 @@ if ($articles_exist == true) {
     }
 
     if ($total_pages > 2) {
+
     	if ($page == 1) {
     		echo '<li class="page-item active text-info"><a class="page-link" href="/index.php?page='. $page .'">1</a></li>';
     		echo '<li class="page-item text-info"><a class="page-link" href="/index.php?page=' . ($page + 1) . '">2</a></li>';
@@ -130,13 +134,13 @@ if ($articles_exist == true) {
     		echo '<li class="page-item active text-info"><a class="page-link" href="/index.php?page=' . $page . '">3</a></li>';
     	}
     }
+
     if ($page < $total_pages) {
     	echo '<li class="page-item">';
-        echo '<a class="page-link text-info" href="/index.php?page=' . ($page + 1) . '">Вперед  → </a>';
-        echo '</li>';
+      echo '<a class="page-link text-info" href="/index.php?page=' . ($page + 1) . '">Вперед  → </a>';
+      echo '</li>';
    	}
-    
-    echo '</ul></nav>';
+  echo '</ul></nav>';
 }
 ?>
 

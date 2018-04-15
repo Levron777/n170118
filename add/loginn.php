@@ -1,6 +1,6 @@
 <?php if(isset($_SESSION['logged_user'])) { ?>
-    Вы вошли как, <?php echo $_SESSION['logged_user']['login']; ?>
-    <a class="" href="/pages/logout.php" class="logout">! Выйти</a>
+    <?php echo $_SESSION['logged_user']['login']; ?>
+    <a class="text-white" href="../add/logout.php" class="logout">! Выйти </a>
     <?php 
         }else { 
 
@@ -13,7 +13,7 @@
 
                 if (password_verify($_POST['password'], $login_inn['password'])) {
                     $_SESSION['logged_user'] = $login_inn;
-                    echo '<span style="color: #fff; text-align: center; font-size: 16px; font-weight: bold; margin-bottom: 20px; display: block; ">Вы успешно авторизованы! Можете войти на <a href="/">главную</a> страницу.</span>';
+                    echo '<span style="color: #fff; text-align: center; font-size: 16px; font-weight: bold; margin-bottom: 20px; display: block; ">Вы успешно авторизованы! <a href="/">Обновить</a> страницу.</span>';
                 }else {
                     $errors[] = 'Пароль неверно введен!';
                 }
@@ -35,13 +35,13 @@
                 <label for="exampleDropdownFormEmail2">
                     Email адрес
                 </label>
-                <input type="email" name="email" class="form-control" id="exampleDropdownFormEmail2" placeholder="email@example.com">
+                <input type="email" name="email" class="form-control" id="exampleDropdownFormEmail2" placeholder="email@example.com" required>
             </div>
             <div class="form-group">
                 <label for="exampleDropdownFormPassword2">
                     Пароль
                 </label>
-                <input name="password" type="password" class="form-control" id="exampleDropdownFormPassword2" placeholder="Password">
+                <input name="password" type="password" class="form-control" id="exampleDropdownFormPassword2" placeholder="Password" required>
             </div>
             <button type="submit" name="do_login" class="btn btn-info btn-sm border">
                 Войти
@@ -57,6 +57,6 @@
         } 
             
         if($_SESSION['logged_user']['login'] == 'admin') {
-            echo "<a class=\"navigation_admin\" href='/pages/admin.php'>Админка</a>";
+            echo "<a class=\"navigation_admin text-white\" href='../add/admin.php'>. Админка</a>";
         }
     ?>

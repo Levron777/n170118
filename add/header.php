@@ -8,29 +8,23 @@
   		<div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Новое <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="../index.php">Новое <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Интересное</a>
+                    <a class="nav-link" href="../index.php">Интересное</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Еще...
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">О ETF</a>
-                        <a class="dropdown-item" href="#">Об акциях </a>
+                        <a class="dropdown-item" href="../index.php">О ETF</a>
+                        <a class="dropdown-item" href="../index.php">Об акциях </a>
                         <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Обо всем</a>
+                            <a class="dropdown-item" href="../index.php">Обо всем</a>
                     </div>
                 </li>
             </ul>
-                    
-                    <!-- Здесь будет поиск на сайте-->
-                    
-            <div>
-                <img src="../images/search.png" class="float-right rounded" 
-                             style="max-height: 25px; max-width: 25px;">
-            </div>
+
             <?php require_once('loginn.php');?>
 		</div>
 	</nav>			

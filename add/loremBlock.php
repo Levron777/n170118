@@ -1,3 +1,5 @@
+<!-- Не используется !!!!--> 
+
 <div class="row">
 	<div class="col-sm">
 		<div class="media d-inline-block">

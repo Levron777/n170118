@@ -31,6 +31,7 @@
 
         if (isset($_POST['do_registration'])) {
             $errors = array();
+            
             if (trim($_POST['login']) == '') {
                 $errors[] = 'Введите логин!';
             }
@@ -46,9 +47,11 @@
             if ($_POST['RePassword'] !== $_POST['password']) {
                 $errors[] = 'Проверочный пароль введен неверно!';
             }
+
             $count_login = $pdo->prepare('SELECT * FROM `user` WHERE `login` =  :login');
             $count_login->execute(array(':login' => $_POST['login']));
             $count_reg_login = $count_login->rowCount();
+
             if ($count_reg_login > 0) {
                 $errors[] = 'Пользователь с таким логином уже зарегистрирован!';
             }
@@ -56,14 +59,16 @@
             $count_email = $pdo->prepare('SELECT * FROM `user` WHERE `email` = :email');
             $count_email->execute(array(':email' => $_POST['email']));
             $count_reg_email = $count_email->rowCount();
+
             if ($count_reg_email > 0) {
                 $errors[] = 'Пользователь с таким email уже зарегистрирован!';
             }
          
             if (empty($errors)) {
                 $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-                $signup = $pdo->prepare('INSERT INTO `user`(`login`, `email`, `password`, `create_date`) VALUES(:login, :email, :password, NOW())');
-                $signup->execute(array(':login' => $_POST['login'], ':email' => $_POST['email'], ':password' => $password));
+                $ip = $_SERVER['REMOTE_ADDR'];
+                $signup = $pdo->prepare('INSERT INTO `user`(`login`, `email`, `password`, `pubdate`, `ip`) VALUES(:login, :email, :password, NOW(), :ip)');
+                $signup->execute(array(':login' => $_POST['login'], ':email' => $_POST['email'], ':password' => $password, ':ip' =>$ip));
                 
                 echo '<span class="text-info" style="text-align: center; font-weight: bold; margin-bottom: 20px; display: block; ">Вы успешно зарегистрированы! Можете войти на <a href="/">главную</a> страницу.</span>';
             }else {
@@ -80,28 +85,28 @@
                 <div class="form-row">
                     <div class="col-md-6 mb-6 text-info">
                         <label for="validationCustom01">Ваше имя</label>
-                        <input type="text" name="login" class="form-control" id="validationCustom01" placeholder="Имя">
+                        <input type="text" name="login" class="form-control" id="validationCustom01" placeholder="Имя" required>
                         <div class="valid-feedback">
                             Отлично!
                         </div>
                     </div>
                     <div class="col-md-6 mb-6 text-info">
                         <label for="validationCustom02">Ваш e-mail</label>
-                        <input type="email" name="email" class="form-control" id="validationCustom02" placeholder="E-mail">
+                        <input type="email" name="email" class="form-control" id="validationCustom02" placeholder="E-mail" required>
 				        <div class="valid-feedback">
                             Отлично!
 				        </div>
                     </div>
                     <div class="col-md-6 mb-6 text-info">
                         <label for="validationCustom01">Ваш пароль</label>
-                        <input type="password" name="password" class="form-control" id="validationCustom01" placeholder="Введите пароль">
+                        <input type="password" name="password" class="form-control" id="validationCustom01" placeholder="Введите пароль" required>
                         <div class="valid-feedback">
 				            Отлично!
                         </div>
                     </div>
                     <div class="col-md-6 mb-6 text-info">
                         <label for="validationCustom02">Проверка пароля</label>
-                        <input type="password" name="RePassword" class="form-control" id="validationCustom02" placeholder="Введите пароль еще раз">
+                        <input type="password" name="RePassword" class="form-control" id="validationCustom02" placeholder="Введите пароль еще раз" required>
                         <div class="valid-feedback">
                             Отлично!
                         </div>

@@ -20,16 +20,31 @@
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+ 
+    <script type="text/javascript">
+        $(function() {
+            $(window).scroll(function() {
+
+                if($(this).scrollTop() > 100) {
+                    $('#toTop').fadeIn();
+                } else {
+                    $('#toTop').fadeOut();
+                }
+            });
+            $('#toTop').click(function() {
+                $('body,html').animate({scrollTop:0}, 800);
+            });
+        });
+    </script>
 
 	<?php require_once('../add/header.php');?>
 
 	<div class="container-fluid">
-
 		<div class="jumbotron" style="max-width: 100%; max-height: 150px;">
 			<?php 
 				require_once('../add/mainTitle.php');
 			?>
-			 
 		</div>
 
 		<!--<h1>Важные новости!</h1>-->
@@ -66,95 +81,118 @@
 				<a name="btn_back" href="../index.php" class="btn btn-info btn-sm">← Назад</a>
                 <br><br><br>
 
-                <h5 class="text-center text-info">Add comment</h5>
+                <h5 class="text-center text-info">Добавить комментарий</h5>
                 <br>
                 
-                <form class="needs-validation text-info" style="padding-left: 20px;" novalidate>
-				<div class="form-row">
-					<div class="col-md-4 mb-3">
-						<label for="validationCustom01">First name</label>
-						<input type="text" class="form-control" id="validationCustom01" placeholder="First name" value="Mark" required>
-						<div class="valid-feedback">
-							Looks good!
-						</div>
-					</div>
-					<div class="col-md-4 mb-3">
-						<label for="validationCustom02">Last name</label>
-						<input type="text" class="form-control" id="validationCustom02" placeholder="Last name" value="Otto" required>
-						<div class="valid-feedback">
-						Looks good!
-						</div>
-					</div>
-					<div class="col-md-4 mb-3">
-						<label for="validationCustomUsername">Username</label>
-						<div class="input-group">
-							<div class="input-group-prepend">
-								<span class="input-group-text" id="inputGroupPrepend">@</span>
-							</div>
-							<input type="text" class="form-control" id="validationCustomUsername" placeholder="Username" aria-describedby="inputGroupPrepend" required>
-							<div class="invalid-feedback">
-								Please choose a username.
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="form-row">
-					<div class="col-md-6 mb-3">
-						<label for="validationCustom03">City</label>
-						<input type="text" class="form-control" id="validationCustom03" placeholder="City" required>
-						<div class="invalid-feedback">
-							Please provide a valid city.
-						</div>
-					</div>
-					<div class="col-md-3 mb-3">
-						<label for="validationCustom04">State</label>
-						<input type="text" class="form-control" id="validationCustom04" placeholder="State" required>
-						<div class="invalid-feedback">
-							Please provide a valid state.
-						</div>
-					</div>
-					<div class="col-md-3 mb-3">
-						<label for="validationCustom05">Zip</label>
-						<input type="text" class="form-control" id="validationCustom05" placeholder="Zip" required>
-						<div class="invalid-feedback">
-							Please provide a valid zip.
-						</div>
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="form-check" style="padding-left: 20px;">
-						<input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
-						<label class="form-check-label" for="invalidCheck">
-							Agree to terms and conditions
-						</label>
-						<div class="invalid-feedback">
-							You must agree before submitting.
-						</div>
-					</div>
-				</div>
-				<button class="btn btn-info" type="submit">Подтвердить</button>
-			</form>
+                <?php
+                	if (isset($_POST["add_comment"])) {
+                		$errors = array();
 
-			<script>
-			// Example starter JavaScript for disabling form submissions if there are invalid fields
-			(function() {
-				'use strict';
-				window.addEventListener('load', function() {
-				// Fetch all the forms we want to apply custom Bootstrap validation styles to
-				var forms = document.getElementsByClassName('needs-validation');
-			    // Loop over them and prevent submission
-				var validation = Array.prototype.filter.call(forms, function(form) {
-					form.addEventListener('submit', function(event) {
-					if (form.checkValidity() === false) {
-						event.preventDefault();
-						event.stopPropagation();
-					}
-					form.classList.add('was-validated');
-					}, false);
-			    });
-			  }, false);
-			})();
-			</script>
+                		if (trim($_POST['login']) == '') {
+                			$errors[] = 'Введите логин!';
+            			}
+
+            			if (trim($_POST['comment']) == '') {
+                			$errors[] = 'Введите комментарий!';
+            			}
+
+            			$isset_log = $pdo->prepare('SELECT login FROM `user` WHERE login = :login');
+            			$isset_log->execute(array($_POST['login']));
+            			$isset_login = $isset_log->fetchColumn();
+
+            			if (!isset($isset_login)) {
+            				$errors[] = 'Только зарегистрированные пользователи могут оставлять комментарии!';
+            			}
+
+            			if (empty($errors)) {
+            				$add_comment = $pdo->prepare('INSERT INTO `comments` (login, comment, date, article_id) VALUES(:login, :comment, NOW(), :article_id)');
+            				$add_comment->execute(array(':login' => $_POST['login'], ':comment' => $_POST['comment'], ':article_id' => $id));
+
+            				echo '<span class="text-info" style="text-align: center; font-weight: bold; margin-bottom: 20px; display: block; ">Комментарий успешно добавлен!</span>';
+			            }else {
+			                echo '<div style="color:red; text-align: center;">' . array_shift($errors) . '</div><hr>';
+			            }
+            		}
+                ?>
+
+                <form action="" class="needs-validation text-info" method="POST" style="padding-left: 20px;" novalidate>
+					<div class="form-row">
+						<div class="col-md-4 mb-3">
+							<label for="validationCustom01">Ваш логин</label>
+							<input type="text" name="login" class="form-control" id="validationCustom01" placeholder="login" value="<?php echo $_SESSION['logged_user']['login']; ?>" required>
+							<div class="valid-feedback">
+								Отлично!
+							</div>
+						</div>		
+					</div>
+					<div class="form-row">
+						<div class="col-md-4 mb-3">
+							<label for="validationCustom03">Ваш комментарий</label>
+							<textarea type="text" name="comment" class="form-control" id="validationCustom03" placeholder="comment" required> 
+							</textarea>
+							<div class="invalid-feedback">
+								Пожалуйста введите комментарий.
+							</div>
+						</div>
+					</div>
+					<button name="add_comment" class="btn btn-info" type="submit">Добавить</button>
+				</form>
+				<br>
+				<hr>
+				
+				<?php 
+				$isset_comm = $pdo->prepare('SELECT * FROM `comments` WHERE article_id = :article_id');
+				$isset_comm->execute(array($id));
+            	$isset_comment = $isset_comm->fetchAll();
+
+				if (isset($isset_comment)) {
+				?>
+					<h5 class="text-center text-info">Комментарии</h5>
+                <br>
+				<table class="table">
+					<tbody>
+
+						<?php foreach($isset_comment as $comment) { ?>
+
+						<tr>
+							<td>
+								Автор: <?php echo $comment['login'];?>
+							</td>
+							<td>
+						        Дата: <?php echo $comment['date'];?>
+							</td>
+							<td>
+						        <?php echo $comment['comment'];?>
+							</td>
+						</tr>
+
+						<?php } ?>
+
+					</tbody>
+				</table>
+
+				<?php }	?>
+
+				<script>
+				// Example starter JavaScript for disabling form submissions if there are invalid fields
+				(function() {
+					'use strict';
+					window.addEventListener('load', function() {
+					// Fetch all the forms we want to apply custom Bootstrap validation styles to
+					var forms = document.getElementsByClassName('needs-validation');
+				    // Loop over them and prevent submission
+					var validation = Array.prototype.filter.call(forms, function(form) {
+						form.addEventListener('submit', function(event) {
+						if (form.checkValidity() === false) {
+							event.preventDefault();
+							event.stopPropagation();
+						}
+						form.classList.add('was-validated');
+						}, false);
+				    });
+				  }, false);
+				})();
+				</script>
 			</div>
 
 			<div class="col-sm-4 border border-top-0 border-right-0 border-bottom-0">
@@ -164,6 +202,9 @@
 		</div>
 	</div>
 	<div></br></br></div>
-		<?php require_once('footer.php');?>
+
+	<div id="toTop" class="btn btn-outline-info"> ^ Наверх </div>
+	
+	<?php require_once('footer.php'); ?>
 	</body>
 </html>
