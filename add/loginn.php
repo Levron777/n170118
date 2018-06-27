@@ -1,5 +1,10 @@
-<?php if(isset($_SESSION['logged_user'])) { ?>
-    <?php echo $_SESSION['logged_user']['login']; ?>
+<?php require_once "config/db.php";
+if(isset($_SESSION['logged_user'])) { 
+    echo $_SESSION['logged_user']['login']; 
+    if($_SESSION['logged_user']['login'] == 'admin') {
+        echo "<a class=\"navigation_admin text-white\" href='../add/admin.php'>. Админка</a>";
+    }
+    ?>
     <a class="text-white" href="../add/logout.php" class="logout">! Выйти </a>
     <?php 
         }else { 
@@ -55,8 +60,4 @@
     </form>
     <?php
         } 
-            
-        if($_SESSION['logged_user']['login'] == 'admin') {
-            echo "<a class=\"navigation_admin text-white\" href='../add/admin.php'>. Админка</a>";
-        }
     ?>
