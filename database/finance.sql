@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
+-- version 4.7.7
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Фев 25 2018 г., 09:08
--- Версия сервера: 5.5.53
--- Версия PHP: 7.0.14
+-- Время создания: Авг 18 2018 г., 20:07
+-- Версия сервера: 5.7.20
+-- Версия PHP: 7.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -53,6 +55,52 @@ INSERT INTO `articles` (`id`, `title`, `text`, `date`, `views`, `likes`, `catego
 (10, 'Lorem Ipsum10', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ipsum ipsum, faucibus in erat non, elementum vulputate massa. Nulla massa ex, vehicula tempus mattis at, sollicitudin sit amet quam. Mauris blandit velit vel tempus finibus. Mauris vitae semper felis, ut euismod urna. Proin sodales elementum diam varius tristique. Sed non feugiat magna. Proin quis arcu id dui lobortis feugiat. Quisque lacinia, lectus sed mollis egestas, ligula risus lobortis magna, ut dignissim sapien sem quis leo. Nunc accumsan est et erat tempus feugiat. Nam condimentum egestas turpis faucibus pharetra. Praesent a imperdiet arcu, quis ultricies felis.\r\n\r\nDuis nec orci suscipit, suscipit nibh ut, ultricies dolor. Nullam lacus enim, efficitur sit amet nisl et, interdum ullamcorper nisi. Sed venenatis consequat sem, ut aliquam massa rutrum quis. Donec felis felis, commodo in quam at, aliquam auctor turpis. Duis faucibus suscipit tellus, a ultrices magna interdum vitae. Maecenas quis sollicitudin dui. Curabitur consectetur sapien tincidunt metus consectetur suscipit.\r\n\r\nNunc eget sem quis eros porttitor dictum quis at lorem. Proin gravida bibendum augue, lobortis venenatis orci semper nec. Donec convallis dui eu consequat varius. Maecenas id augue vulputate, sollicitudin nulla vitae, dapibus libero. Vivamus in sagittis erat. Sed feugiat tortor purus, dapibus cursus ipsum pellentesque non. Maecenas id sagittis purus. Suspendisse facilisis magna vitae aliquet laoreet. Cras elementum orci aliquam, gravida magna non, varius urna.\r\n\r\nPellentesque vehicula mi sed urna rhoncus dapibus quis ut erat. Duis molestie neque sed lectus congue, a dapibus eros pretium. Pellentesque eget dolor mi. Maecenas id dignissim orci. Phasellus fringilla pellentesque tincidunt. Curabitur dictum, erat ac maximus tincidunt, mi turpis volutpat est, a accumsan tellus massa vel purus. Pellentesque quis sem nulla. Mauris dignissim ante sed ornare semper. Nam arcu nunc, convallis eget scelerisque at, tristique in leo. Praesent hendrerit a nibh nec aliquam. Suspendisse porta libero at ex pharetra, sed suscipit magna consectetur.\r\n\r\nFusce at finibus dolor. Nullam euismod nibh vitae lorem efficitur sollicitudin. Sed vestibulum, tortor eget ultrices blandit, augue justo mattis magna, vel euismod enim enim sed elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Proin et tincidunt felis, et venenatis ipsum. Aliquam congue vitae enim at accumsan. Aliquam ut accumsan ligula, id placerat odio. Mauris a rutrum arcu. Mauris in nulla aliquam ante placerat blandit. Fusce lacinia sed neque quis rutrum. Morbi lobortis nulla non orci ultrices eleifend. Fusce lacinia eros quis nisl volutpat, sit amet pellentesque quam dictum.', '2018-02-06 07:23:00', 1, 1, 'etf'),
 (11, 'Lorem Ipsum11', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ipsum ipsum, faucibus in erat non, elementum vulputate massa. Nulla massa ex, vehicula tempus mattis at, sollicitudin sit amet quam. Mauris blandit velit vel tempus finibus. Mauris vitae semper felis, ut euismod urna. Proin sodales elementum diam varius tristique. Sed non feugiat magna. Proin quis arcu id dui lobortis feugiat. Quisque lacinia, lectus sed mollis egestas, ligula risus lobortis magna, ut dignissim sapien sem quis leo. Nunc accumsan est et erat tempus feugiat. Nam condimentum egestas turpis faucibus pharetra. Praesent a imperdiet arcu, quis ultricies felis.\r\n\r\nDuis nec orci suscipit, suscipit nibh ut, ultricies dolor. Nullam lacus enim, efficitur sit amet nisl et, interdum ullamcorper nisi. Sed venenatis consequat sem, ut aliquam massa rutrum quis. Donec felis felis, commodo in quam at, aliquam auctor turpis. Duis faucibus suscipit tellus, a ultrices magna interdum vitae. Maecenas quis sollicitudin dui. Curabitur consectetur sapien tincidunt metus consectetur suscipit.\r\n\r\nNunc eget sem quis eros porttitor dictum quis at lorem. Proin gravida bibendum augue, lobortis venenatis orci semper nec. Donec convallis dui eu consequat varius. Maecenas id augue vulputate, sollicitudin nulla vitae, dapibus libero. Vivamus in sagittis erat. Sed feugiat tortor purus, dapibus cursus ipsum pellentesque non. Maecenas id sagittis purus. Suspendisse facilisis magna vitae aliquet laoreet. Cras elementum orci aliquam, gravida magna non, varius urna.\r\n\r\nPellentesque vehicula mi sed urna rhoncus dapibus quis ut erat. Duis molestie neque sed lectus congue, a dapibus eros pretium. Pellentesque eget dolor mi. Maecenas id dignissim orci. Phasellus fringilla pellentesque tincidunt. Curabitur dictum, erat ac maximus tincidunt, mi turpis volutpat est, a accumsan tellus massa vel purus. Pellentesque quis sem nulla. Mauris dignissim ante sed ornare semper. Nam arcu nunc, convallis eget scelerisque at, tristique in leo. Praesent hendrerit a nibh nec aliquam. Suspendisse porta libero at ex pharetra, sed suscipit magna consectetur.\r\n\r\nFusce at finibus dolor. Nullam euismod nibh vitae lorem efficitur sollicitudin. Sed vestibulum, tortor eget ultrices blandit, augue justo mattis magna, vel euismod enim enim sed elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Proin et tincidunt felis, et venenatis ipsum. Aliquam congue vitae enim at accumsan. Aliquam ut accumsan ligula, id placerat odio. Mauris a rutrum arcu. Mauris in nulla aliquam ante placerat blandit. Fusce lacinia sed neque quis rutrum. Morbi lobortis nulla non orci ultrices eleifend. Fusce lacinia eros quis nisl volutpat, sit amet pellentesque quam dictum.', '2018-02-06 07:22:00', 2, 2, 'stocks');
 
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `comments`
+--
+
+CREATE TABLE `comments` (
+  `id` int(11) NOT NULL,
+  `login` varchar(255) NOT NULL,
+  `comment` text NOT NULL,
+  `date` datetime(6) NOT NULL,
+  `article_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `comments`
+--
+
+INSERT INTO `comments` (`id`, `login`, `comment`, `date`, `article_id`) VALUES
+(1, 'Forest', 'My first comment\r\n							', '2018-08-18 23:28:32.000000', 10),
+(2, 'admin', ' My second comment\r\n							', '2018-08-18 23:29:02.000000', 11),
+(3, 'Forest', ' My another commens\r\n							', '2018-08-18 23:33:11.000000', 11);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `user`
+--
+
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL,
+  `login` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `pubdate` datetime NOT NULL,
+  `ip` varchar(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `user`
+--
+
+INSERT INTO `user` (`id`, `login`, `email`, `password`, `pubdate`, `ip`) VALUES
+(1, 'Forest', 'forest@mail.com', '$2y$10$4d74gcWiU6VJ23/ZaUoV/./0vR5FZdETIR.i67p/jGbOH6KEyVqqi', '2018-08-18 23:11:36', '127.0.0.1'),
+(2, 'admin', 'admin@mail.com', '$2y$10$kc192ZEobTW/.ePflFmvbeQOUqeVyp90tFGZPaZntWUem0dXICJym', '2018-08-18 23:16:35', '127.0.0.1');
+
 --
 -- Индексы сохранённых таблиц
 --
@@ -64,6 +112,18 @@ ALTER TABLE `articles`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Индексы таблицы `comments`
+--
+ALTER TABLE `comments`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT для сохранённых таблиц
 --
 
@@ -72,6 +132,20 @@ ALTER TABLE `articles`
 --
 ALTER TABLE `articles`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT для таблицы `comments`
+--
+ALTER TABLE `comments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT для таблицы `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
