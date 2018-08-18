@@ -70,7 +70,7 @@
                 $signup = $pdo->prepare('INSERT INTO `user`(`login`, `email`, `password`, `pubdate`, `ip`) VALUES(:login, :email, :password, NOW(), :ip)');
                 $signup->execute(array(':login' => $_POST['login'], ':email' => $_POST['email'], ':password' => $password, ':ip' =>$ip));
                 
-                echo '<span class="text-info" style="text-align: center; font-weight: bold; margin-bottom: 20px; display: block; ">Вы успешно зарегистрированы! Можете войти на <a href="/">главную</a> страницу.</span>';
+                echo '<span class="text-info" style="text-align: center; font-weight: bold; margin-bottom: 20px; display: block; font-size: 20px;">Вы успешно зарегистрированы! Можете войти на <a href="/">главную</a> страницу.</span>';
             }else {
                 echo '<div style="color:red; text-align: center;">' . array_shift($errors) . '</div><hr>';
             }

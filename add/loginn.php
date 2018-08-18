@@ -1,11 +1,12 @@
 <?php
 if(isset($_SESSION['logged_user'])) { 
-    echo $_SESSION['logged_user']['login']; 
+    echo "Вы вошли как: " . $_SESSION['logged_user']['login'] . "," . "&nbsp"; 
     if($_SESSION['logged_user']['login'] == 'admin') {
-        echo "<a class=\"navigation_admin text-white\" href='../add/admin.php'>. Админка</a>";
+        echo "<a class=\"navigation_admin text-white\" href='../add/admin.php'> Админка!&nbsp </a>";
     }
     ?>
-    <a class="text-white" href="../add/logout.php" class="logout">! Выйти </a>
+    <br>
+    <a class="text-white" href="../add/logout.php" class="logout">Выйти?</a>
     <?php 
         }else { 
 
